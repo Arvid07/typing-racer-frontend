@@ -1,0 +1,102 @@
+.home-page {
+    background-color: #2C2C2C;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-container {
+    position: fixed;
+    width: 100%;
+}
+
+.input-container {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #CCCCCC;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+input:focus {
+    outline-color: #E0E0E0;
+    outline-width: 1px;
+}
+
+.input-group input {
+    padding: 10px;
+    font-size: 1.2em;
+    border: 2px solid #666;
+    border-radius: 5px;
+    margin-right: 10px;
+    background-color: #555;
+    color: #E0E0E0;
+}
+
+.outer {
+    text-align: center;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input-group button {
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    background-color: #666;
+    color: #E0E0E0;
+    cursor: pointer;
+}
+
+.input-group button:hover {
+    background-color: #777;
+}
+
+.game-id {
+    font-size: 1.1em;
+    color: #CCCCCC;
+}
+
+.game-id input {
+    padding: 10px;
+    font-size: 1.1em;
+    border: 2px solid #666;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 300px;
+    background-color: #555;
+    color: #E0E0E0;
+}
+
+.game-id button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #666;
+    color: #E0E0E0;
+    cursor: pointer;
+}
+
+.game-id button:hover {
+    background-color: #777;
+}
+
+.user-error {
+    color: red;
+    font-style: italic;
+}

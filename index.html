@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/Keyboard-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=JetBrains Mono" rel="stylesheet" />
+    <title>Typing Racer</title>
+    <style>
+      body, html {
+        background-color: #2C2C2C;
+        height: 100%;
+        overflow-x: hidden;
+      }
+
+      ::-webkit-scrollbar {
+        width: 12px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #333;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #555;
+        border-radius: 10px;
+        border: 3px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

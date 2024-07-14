@@ -1,0 +1,42 @@
+.lobby-page {
+    background-color: #2C2C2C;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lobby-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #CCCCCC;
+}
+
+.user-list {
+    text-align: center;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    color: #E0E0E0;
+}
+
+.user-list li {
+    margin: 10px 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    background-color: #666;
+    color: #E0E0E0;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #777;
+}
