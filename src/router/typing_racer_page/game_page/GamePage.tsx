@@ -31,7 +31,7 @@ function GamePage(
         userMap,
         correctTextLengthMap,
         userColorMap,
-        gameText,
+        gameText
     } = useContext(Context);
 
     useEffect(() => {

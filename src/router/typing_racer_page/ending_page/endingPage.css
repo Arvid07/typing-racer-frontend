@@ -38,3 +38,18 @@
 .user-list {
     margin: 10px 0;
 }
+
+.play-again {
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #666;
+    color: #E0E0E0;
+    cursor: pointer;
+}
+
+.play-again:hover {
+    background-color: #777;
+}

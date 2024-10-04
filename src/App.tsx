@@ -3,8 +3,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import HomePage from "./router/home_page/HomePage";
 import {Socket} from "socket.io-client";
 import {DefaultEventsMap} from "@socket.io/component-emitter";
-import OuterGamePage, {GameState} from "./router/typing_racer_page/TypingRacerPage";
-import {useMediaQuery} from "react-responsive";
+import OuterGamePage, {AppState} from "./router/typing_racer_page/TypingRacerPage";
 
 export const GAME_START_SECONDS = 5;
 
@@ -16,10 +15,12 @@ interface ContextType {
     setGameId: React.Dispatch<React.SetStateAction<string | undefined>>,
     userMap: Map<string, string>,
     setUserMap: React.Dispatch<React.SetStateAction<Map<string, string>>>,
-    gameState: GameState,
-    setGameState: React.Dispatch<React.SetStateAction<GameState>>,
-    gameText: string
+    appState: AppState,
+    setAppState: React.Dispatch<React.SetStateAction<AppState>>,
+    gameText: string,
     setGameText: React.Dispatch<React.SetStateAction<string>>,
+    createdGameText: boolean,
+    setCreatedGameText: React.Dispatch<React.SetStateAction<boolean>>,
     correctTextLengthMap: Map<string, number>,
     setCorrectTextLengthMap: React.Dispatch<React.SetStateAction<Map<string, number>>>,
     userColorMap: Map<string, string>,
@@ -31,13 +32,14 @@ interface ContextType {
 // @ts-ignore
 export const Context = React.createContext<ContextType>();
 
-function UserJoin() {
+function App() {
     const [userName, setUserName] = useState("");
     const [gameId, setGameId] = useState<string | undefined>("");
     const socketRef = useRef<Socket<DefaultEventsMap, DefaultEventsMap> | null>(null);
     const [userMap, setUserMap] = useState<Map<string, string>>(new Map());
-    const [gameState, setGameState] = useState(GameState.LOBBY);
+    const [appState, setAppState] = useState(AppState.Lobby);
     const [gameText, setGameText] = useState("");
+    const [createdGameText, setCreatedGameText] = useState(false);
     const [correctTextLengthMap, setCorrectTextLengthMap] = useState<Map<string, number>>(new Map());
     const [userColorMap, setUserColorMap] = useState<Map<string, string>>(new Map());
     const [countdownSeconds, setCountdownSeconds] = useState(GAME_START_SECONDS);
@@ -48,7 +50,8 @@ function UserJoin() {
             userName, setUserName,
             gameId, setGameId,
             userMap, setUserMap,
-            gameState, setGameState,
+            appState, setAppState,
+            createdGameText, setCreatedGameText,
             gameText, setGameText,
             correctTextLengthMap, setCorrectTextLengthMap,
             userColorMap, setUserColorMap,
@@ -66,15 +69,6 @@ function UserJoin() {
             </BrowserRouter>
         </Context.Provider>
     );
-}
-
-function App() {
-    const isDesktop = useMediaQuery({
-        query: '(min-width: 800px)'
-    })
-
-    return isDesktop ? <UserJoin /> :
-        <p style={{color: "white", fontSize: 20, textAlign: "center"}}>Please access the website using a desktop computer.</p>;
 }
 
 export default App;

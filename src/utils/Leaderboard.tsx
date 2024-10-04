@@ -61,7 +61,7 @@ export function getLeaderboardElements(
             }
 
             listItems.push(
-                <div className={"user-placement"}>
+                <div className={"user-placement"} key={currentUserId + "o"}>
                     <div
                         className={"user-color"}
                         style={{

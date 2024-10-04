@@ -8,20 +8,22 @@ interface Props {
 }
 
 function LobbyPage({handleStartGame}: Props) {
+    const {
+        userColorMap,
+        userMap,
+        createdGameText
+    } = useContext(Context);
+
     function getUserList() {
         const listItems: JSX.Element[] = [];
 
-        const {
-            userColorMap,
-            userMap,
-        } = useContext(Context);
-
+        let i = 0;
         userMap.forEach((name, key) => {
             const color = userColorMap.get(key);
 
             if (color !== undefined) {
                 listItems.push(
-                    <div className={"user-placement"}>
+                    <div className={"user-placement"} key={i}>
                         <div
                             className={"user-color"}
                             style={{
@@ -35,6 +37,7 @@ function LobbyPage({handleStartGame}: Props) {
                     </div>
                 );
             }
+            i++;
         });
 
         return listItems;
@@ -48,9 +51,9 @@ function LobbyPage({handleStartGame}: Props) {
             <div className={"user-list"}>
                 {getUserList()}
             </div>
-            <button onClick={handleStartGame}>Start Game</button>
+            <button disabled={!createdGameText} onClick={handleStartGame}>Start Game</button>
         </div>
-    )
+    );
 }
 
 export default LobbyPage;

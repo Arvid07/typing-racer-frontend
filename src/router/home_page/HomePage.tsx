@@ -3,15 +3,16 @@ import {useNavigate} from "react-router-dom";
 import "./styles.css";
 import Header from "../header/Header";
 import {io, Socket} from "socket.io-client";
-import {GameState} from "../typing_racer_page/TypingRacerPage.tsx";
+import {AppState} from "../typing_racer_page/TypingRacerPage.tsx";
 import {Context, GAME_START_SECONDS} from "../../App.tsx";
 import {DefaultEventsMap} from "@socket.io/component-emitter";
 
 interface UserConnectData {
     user_map: { [key: string]: string },
     correct_text_length_map: { [key: string]: number },
-    app_state: GameState,
-    color: { [key: string]: string }
+    app_state: AppState,
+    color: { [key: string]: string },
+    finished_generating_text: boolean
 }
 
 interface UserTextChangeIn {
@@ -33,10 +34,11 @@ function HomePage() {
         setGameText,
         gameId, setGameId,
         setUserMap,
-        setGameState,
+        setAppState,
         setCorrectTextLengthMap,
         setUserColorMap,
-        setCountdownSeconds
+        setCountdownSeconds,
+        setCreatedGameText
     } = useContext(Context);
 
     useEffect(() => {
@@ -46,7 +48,7 @@ function HomePage() {
         onceRef.current = true;
 
         setGameText("");
-        setGameState(GameState.LOBBY);
+        setAppState(AppState.Lobby);
         setUserMap(new Map());
         setCorrectTextLengthMap(new Map());
         setUserColorMap(new Map());
@@ -66,17 +68,18 @@ function HomePage() {
         socket.on("user_connect", (userConnectData: UserConnectData) => {
             setUserMap(new Map(Object.entries(userConnectData.user_map)));
             setCorrectTextLengthMap(new Map(Object.entries(userConnectData.correct_text_length_map)));
-            setGameState(GameState[userConnectData.app_state as unknown as keyof typeof GameState]);
+            setAppState(AppState[userConnectData.app_state as keyof typeof AppState]);
             setUserColorMap(new Map(Object.entries(userConnectData.color)));
+            setCreatedGameText(userConnectData.finished_generating_text);
         });
 
         socket.on("start_game", (gameText: string) => {
             setGameText(gameText);
         });
 
-        socket.on("app_state_change", (newAppState: GameState) => {
-            const enumState = GameState[newAppState as unknown as keyof typeof GameState];
-            setGameState(enumState);
+        socket.on("app_state_change", (newAppState: AppState) => {
+            const enumState = AppState[newAppState as unknown as keyof typeof AppState];
+            setAppState(enumState);
         });
 
         socket.on("text_change", (newUserTextLength: UserTextChangeIn) => {
@@ -96,7 +99,6 @@ function HomePage() {
         });
 
         socket.on("countdown_change", (seconds) => {
-            console.log(seconds);
             setCountdownSeconds(seconds);
         })
     }, []);
@@ -113,7 +115,6 @@ function HomePage() {
         });
 
         socket?.on("game_unavailable", () => {
-            console.log("game_unavailable");
             setGameUnavailable(true);
             return;
         });
@@ -127,10 +128,7 @@ function HomePage() {
 
     function handleGameCreate() {
         setEnterUserName(userName.length === 0);
-
-        if (userName.length === 0) {
-            return;
-        }
+        if (userName.length === 0) return;
         setGameCreate(true);
 
         socket?.emit("create_game", {
@@ -140,8 +138,8 @@ function HomePage() {
 
         socket?.on("game_id", (newGameId: string) => {
             setGameId(newGameId);
-            navigate(`/${newGameId}`)
-        })
+            navigate(`/${newGameId}`);
+        });
     }
 
     function displayGameIsUnavailable() {

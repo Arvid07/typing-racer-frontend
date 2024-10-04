@@ -78,7 +78,7 @@ export function TextInput({userId, userText, userCorrectLength, setUserCorrectLe
 
         if (gameText.length === 0) {
             spanList.push(
-                <div className={"countdown"}>
+                <div key={0} className={"countdown"}>
                     <p>The game starts in {countdownSeconds}</p>
                 </div>
             );
