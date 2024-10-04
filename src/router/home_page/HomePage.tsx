@@ -59,7 +59,7 @@ function HomePage() {
             socket = socketRef.current;
             socket.emit("leave_game");
         } else {
-            socket = io("ws://localhost:3001");
+            socket = io("ws://api.arvids.dev");
             socketRef.current = socket;
         }
 
